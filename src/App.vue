@@ -75,6 +75,6 @@ export default defineComponent({
 <style scoped>
 .containers {
   margin: 0;
-  padding: 20px;
+  padding: 0 50px;
 }
 </style>

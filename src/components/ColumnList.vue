@@ -22,6 +22,7 @@ export interface ClumnListProps {
   description: string;
 }
 export default defineComponent({
+  name: 'ColumnList',
   props: {
     list: {
       type: Array as PropType<ClumnListProps[]>,
