@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-4 mb-4" v-for="column in columnListData" :key="column.id">
       <div class="card h-100 shadow-sm" >
         <div class="card-body text-center">

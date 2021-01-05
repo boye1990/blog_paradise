@@ -1,5 +1,6 @@
 <template>
   <div class="containers">
+    <GlobalHearder :user='user'></GlobalHearder>
     <ColumnList :list='list'></ColumnList>
   </div>
 </template>
@@ -7,6 +8,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ColumnList, { ClumnListProps } from './components/ColumnList.vue'
+import GlobalHearder, { UserProps } from './components/GlobalHearder.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 const list: ClumnListProps[] = [
   {
@@ -51,15 +53,20 @@ const list: ClumnListProps[] = [
     description: '这是test1专栏，有一段非常有意思的简介，可以更新一下哦'
   }
 ]
-
+const user: UserProps = {
+  isLogin: true,
+  name: '博烨'
+}
 export default defineComponent({
   name: 'App',
   components: {
-    ColumnList
+    ColumnList,
+    GlobalHearder
   },
   setup () {
     return {
-      list
+      list,
+      user
     }
   }
 })
