@@ -2,11 +2,22 @@
   <div class="containers">
     <GlobalHearder :user='user'></GlobalHearder>
     <ColumnList :list='list'></ColumnList>
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
+        <input type="text" class="form-control" @blur="valiateEmail" v-model="emailRef.val" id="exampleInputEmail1" >
+        <div class="from-text" v-if="emailRef.message"> {{emailRef.message}} </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">密码</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" >
+      </div>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import ColumnList, { ClumnListProps } from './components/ColumnList.vue'
 import GlobalHearder, { UserProps } from './components/GlobalHearder.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -57,6 +68,7 @@ const user: UserProps = {
   isLogin: true,
   name: '博烨'
 }
+const emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 export default defineComponent({
   name: 'App',
   components: {
@@ -64,9 +76,25 @@ export default defineComponent({
     GlobalHearder
   },
   setup () {
+    const emailRef = reactive({
+      val: '',
+      error: false,
+      message: ''
+    })
+    const valiateEmail = () => {
+      if (emailRef.val.trim() === '') {
+        emailRef.error = true
+        emailRef.message = '邮箱不能为空'
+      } else if (!emailReg.test(emailRef.val)) {
+        emailRef.error = true
+        emailRef.message = '请输入正确的邮箱格式'
+      }
+    }
     return {
       list,
-      user
+      user,
+      emailRef,
+      valiateEmail
     }
   }
 })
