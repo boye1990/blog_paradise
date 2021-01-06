@@ -4,6 +4,10 @@
     <ColumnList :list='list'></ColumnList>
     <form>
       <div class="mb-3">
+        <label class="form-label">邮箱地址</label>
+        <validate-input :rules="emailRules"></validate-input>
+      </div>
+      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
         <input type="text" class="form-control" @blur="valiateEmail" v-model="emailRef.val" id="exampleInputEmail1" >
         <div class="from-text" v-if="emailRef.message"> {{emailRef.message}} </div>
@@ -20,6 +24,7 @@
 import { defineComponent, reactive } from 'vue'
 import ColumnList, { ClumnListProps } from './components/ColumnList.vue'
 import GlobalHearder, { UserProps } from './components/GlobalHearder.vue'
+import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 const list: ClumnListProps[] = [
   {
@@ -68,12 +73,19 @@ const user: UserProps = {
   isLogin: true,
   name: '博烨'
 }
+
+const emailRules: RulesProp = [
+  { type: 'required', message: '电子邮箱地址不能为空' },
+  { type: 'email', message: '请输入正确的电子邮箱格式' }
+]
+
 const emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 export default defineComponent({
   name: 'App',
   components: {
     ColumnList,
-    GlobalHearder
+    GlobalHearder,
+    ValidateInput
   },
   setup () {
     const emailRef = reactive({
@@ -94,7 +106,8 @@ export default defineComponent({
       list,
       user,
       emailRef,
-      valiateEmail
+      valiateEmail,
+      emailRules
     }
   }
 })
