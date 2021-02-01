@@ -8,6 +8,7 @@
       :value="inputRef.val"
       @blur="validateInput"
       @input="updateValue"
+      v-bind="$attrs"
     >
     <span v-if="inputRef.error" class="invalid-feedback"> {{inputRef.message}} </span>
   </div>
@@ -24,6 +25,8 @@ const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0
 export type RulesProp = RuleProp[]
 export default defineComponent({
   name: 'ValidateInput',
+  // 禁用 Attribute 继承， 不让绑定属性添加在父节点上
+  inheritAttrs: false,
   props: {
     rules: {
       type: Array as PropType<RulesProp>
@@ -39,7 +42,6 @@ export default defineComponent({
     const updateValue = (e: KeyboardEvent) => {
       const targetValue = (e.target as HTMLInputElement).value
       inputRef.val = targetValue
-      console.log(targetValue)
       context.emit('update:modelValue', targetValue)
     }
     const validateInput = () => {

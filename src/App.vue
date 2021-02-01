@@ -5,7 +5,7 @@
     <form>
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules" v-model="emailValue"></validate-input>
+        <validate-input placeholder='请输入邮箱' type="text" :rules="emailRules" v-model="emailValue"></validate-input>
         {{emailValue}}
       </div>
       <div class="mb-3">
@@ -89,7 +89,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
-    const emailValue = ref('vaking')
+    const emailValue = ref('')
     const emailRef = reactive({
       val: '',
       error: false,
