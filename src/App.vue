@@ -5,7 +5,8 @@
     <form>
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules"></validate-input>
+        <validate-input :rules="emailRules" v-model="emailValue"></validate-input>
+        {{emailValue}}
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
@@ -21,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import ColumnList, { ClumnListProps } from './components/ColumnList.vue'
 import GlobalHearder, { UserProps } from './components/GlobalHearder.vue'
 import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
@@ -88,6 +89,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
+    const emailValue = ref('vaking')
     const emailRef = reactive({
       val: '',
       error: false,
@@ -107,7 +109,8 @@ export default defineComponent({
       user,
       emailRef,
       valiateEmail,
-      emailRules
+      emailRules,
+      emailValue
     }
   }
 })
